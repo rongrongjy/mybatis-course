@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- settings:控制mybatis全局行为   -->
+    <settings>
+<!--  setting：设置mybatis输出日志      STDOUT_LOGGING：将日志输出到控制台-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+<!--环境配置：数据库的连接信息
+    default：必须和某个environments的id值一样。
+    告诉mybatis使用哪个数据库的连接信息，也就是访问哪个数据库
+-->
+    <environments default="development">
+        <!--environment：一个数据库信息的配置。环境
+            id：一个唯一值，自定义，表示环境的名称。
+        -->
+        <environment id="development">
+            <!--
+                transactionManager：mybatis的事务类型
+                    type：JDBC（表示使用jdbc中的Connection对象的commit，rollback做事务处理）
+            -->
+            <transactionManager type="JDBC"/>
+            <!--
+                dataSource：表示数据源，连接数据库的
+                    type：表示数据源的类型，POOLED表示使用连接池
+            -->
+            <dataSource type="POOLED">
+                <!--
+                    driver，user，username，password是固定的，不能自定义
+                -->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/springdb"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+<!--   sql mapper（sql映射文件）的位置 -->
+    <mappers>
+        <!--
+            一个mapper标签指定一个文件的位置 可以有多个mapper
+            从类路径开始的路径信息 target/clasess（类路径）
+       -->
+        <mapper resource="org/rongrong/dao/StudentDao.xml"/>
+    </mappers>
+</configuration>
